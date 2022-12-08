@@ -18,5 +18,20 @@ public class Main {
         Thread T2 = new Thread2();
         Thread T3 = new Thread3();
         Thread T4 = new Thread4();
+
+        T1.start();
+        T2.start();
+        T3.start();
+        T4.start();
+
+        try{
+            T1.join();
+            T2.join();
+            T3.join();
+            T4.join();
+        } catch (InterruptedException ex){
+            ex.printStackTrace();
+        }
+        System.out.println("Lab 3 finished");
     }
 }
