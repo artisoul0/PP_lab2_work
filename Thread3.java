@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Thread3 extends Thread{
 
 
@@ -15,9 +17,12 @@ public class Thread3 extends Thread{
         Data.synchroMonitor.signalInput();
         Data.synchroMonitor.waitForInput();
         int q3 = Data.synchroMonitor.minQ(H*2, H*3);
+        Data.synchroMonitor.findMinQ(q3);
         Data.synchroMonitor.signalMinQ();
         Data.synchroMonitor.waitForMinQ();
+        System.out.println(Arrays.toString(Data.B));
         int q3_copied = Data.synchroMonitor.copyScalarQ();
         int p3_copied = Data.synchroMonitor.copyScalarP();
+        System.out.println(q3 + " q3_copied");
     }
 }

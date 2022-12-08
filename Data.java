@@ -72,7 +72,8 @@ public class Data {
 
         public synchronized void waitForMinQ() {
             try {
-                if (F2 != 4)
+                System.out.println(F2 + " F2 in wait min");
+                if (F2 != 3)
                     wait();
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
@@ -80,8 +81,10 @@ public class Data {
         }
 
         public synchronized void signalMinQ() {
+
             ++F2;
-            if (F2 == 4)
+            System.out.println(F2 + " F2 in signal min");
+            if (F2 == 3)
                 notifyAll();
         }
 
@@ -130,6 +133,11 @@ public class Data {
                 min = Math.min(min, B[i]);
             }
             return min;
+        }
+
+        public synchronized void findMinQ(int qi) {
+            if (q > qi)
+                q = qi;
         }
 
         public static int[][] multiplyMatrixAndSubMatrix(int[][] MX, int[][] MY,
