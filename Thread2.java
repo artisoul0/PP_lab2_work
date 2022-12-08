@@ -26,6 +26,6 @@ public class Thread2 extends Thread{
         int p2_copied = Data.synchroMonitor.copyScalarP();
 //        int c2_copied = Data.synchroMonitor.copyScalarC();
 //        e = p2_copied + c2_copied;
-        System.out.println(q2 + " q2_copied");
+        System.out.println(q2 + " q2");
     }
 }

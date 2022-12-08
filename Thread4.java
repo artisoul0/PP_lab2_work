@@ -14,6 +14,6 @@ public class Thread4 extends Thread{
         System.out.println(Arrays.toString(Data.B));
         int q4_copied = Data.synchroMonitor.copyScalarQ();
         int p4_copied = Data.synchroMonitor.copyScalarP();
-        System.out.println(q4 + " q4_copied");
+        System.out.println(q4 + " q4");
     }
 }

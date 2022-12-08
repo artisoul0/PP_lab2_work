@@ -17,6 +17,7 @@ public class Thread1 extends Thread{
         Data.synchroMonitor.waitForMinQ();
         int q1_copied = Data.synchroMonitor.copyScalarQ();
         int p1_copied = Data.synchroMonitor.copyScalarP();
-        System.out.println(q1 + " q1_copied");
+        System.out.println(q1 + " q1");
+        System.out.println(Data.q + "  q1_copied");
     }
 }

@@ -52,7 +52,7 @@ public class Data {
 
         public synchronized void waitForInput() {
             try {
-                if (F1 != 2)
+                if (F1 != 3)
                     wait();
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
@@ -61,7 +61,7 @@ public class Data {
 
         public synchronized void signalInput() {
             ++F1;
-            if (F1 == 2)
+            if (F1 == 3)
                 notifyAll();
         }
 
@@ -73,7 +73,7 @@ public class Data {
         public synchronized void waitForMinQ() {
             try {
                 System.out.println(F2 + " F2 in wait min");
-                if (F2 != 3)
+                if (F2 != 4)
                     wait();
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
@@ -82,9 +82,9 @@ public class Data {
 
         public synchronized void signalMinQ() {
 
-            ++F2;
+            F2++;
             System.out.println(F2 + " F2 in signal min");
-            if (F2 == 3)
+            if (F2 == 4)
                 notifyAll();
         }
 

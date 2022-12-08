@@ -23,6 +23,6 @@ public class Thread3 extends Thread{
         System.out.println(Arrays.toString(Data.B));
         int q3_copied = Data.synchroMonitor.copyScalarQ();
         int p3_copied = Data.synchroMonitor.copyScalarP();
-        System.out.println(q3 + " q3_copied");
+        System.out.println(q3 + " q3");
     }
 }
