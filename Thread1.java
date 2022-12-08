@@ -10,6 +10,10 @@ public class Thread1 extends Thread{
         System.out.println("T1 data has been successfully entered");
         Data.synchroMonitor.signalInput();
         Data.synchroMonitor.waitForInput();
+        //part of M
+        Data.MonitorForSynchronization.multiplyVectorBySubMatrix(Data.A,Data.MB,0,H);
+
+
         int q1 = Data.synchroMonitor.minQ(0, H);
         Data.synchroMonitor.compareScalarQ(q1);
         System.out.println(Arrays.toString(Data.B));

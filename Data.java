@@ -3,7 +3,7 @@ public class Data {
     public static int c;
     public static int p;
     public static int q;
-    public static int []A, B, L, V;
+    public static int []A, B, L, V, M;
     public static int [][] MB, MZ, MR;
     public static int e = 0;
 
@@ -15,6 +15,10 @@ public class Data {
 
     public static synchronized void setMR(int[][] MR) {
         Data.MR = MR;
+    }
+
+    public static synchronized void setM(int[] M) {
+        Data.M = M;
     }
 
 
@@ -43,6 +47,7 @@ public class Data {
     public static synchronized void setScalarP(int p) {
         Data.p = p;
     }
+
 
     public static MonitorForSynchronization synchroMonitor = new MonitorForSynchronization();
 
