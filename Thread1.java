@@ -11,13 +11,13 @@ public class Thread1 extends Thread{
         Data.synchroMonitor.signalInput();
         Data.synchroMonitor.waitForInput();
         int q1 = Data.synchroMonitor.minQ(0, H);
-        Data.synchroMonitor.findMinQ(q1);
+        Data.synchroMonitor.compareScalarQ(q1);
         System.out.println(Arrays.toString(Data.B));
         Data.synchroMonitor.signalMinQ();
         Data.synchroMonitor.waitForMinQ();
         int q1_copied = Data.synchroMonitor.copyScalarQ();
         int p1_copied = Data.synchroMonitor.copyScalarP();
         System.out.println(q1 + " q1");
-        System.out.println(Data.q + "  q1_copied");
+        System.out.println(q1_copied + "  q1_copied");
     }
 }

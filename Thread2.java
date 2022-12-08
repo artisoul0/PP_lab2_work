@@ -18,7 +18,7 @@ public class Thread2 extends Thread{
         Data.synchroMonitor.signalInput();
         Data.synchroMonitor.waitForInput();
         int q2 = Data.synchroMonitor.minQ(H, H*2);
-        Data.synchroMonitor.findMinQ(q2);
+        Data.synchroMonitor.compareScalarQ(q2);
         Data.synchroMonitor.signalMinQ();
         Data.synchroMonitor.waitForMinQ();
         System.out.println(Arrays.toString(Data.B));
@@ -27,5 +27,6 @@ public class Thread2 extends Thread{
 //        int c2_copied = Data.synchroMonitor.copyScalarC();
 //        e = p2_copied + c2_copied;
         System.out.println(q2 + " q2");
+        System.out.println(q2_copied + "  q2_copied");
     }
 }

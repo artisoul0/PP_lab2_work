@@ -17,6 +17,8 @@ public class Data {
         Data.MR = MR;
     }
 
+
+
     public static synchronized void setL(int[] L) {
         Data.L = L;
     }
@@ -46,6 +48,7 @@ public class Data {
 
     public static class MonitorForSynchronization {
 
+        private static boolean first = false;
         private static int F1 = 0;
         private static int F2 = 0;
         private static int F3 = 0;
@@ -136,8 +139,8 @@ public class Data {
         }
 
         public synchronized void findMinQ(int qi) {
-            if (q > qi)
-                q = qi;
+            if (Data.q > qi)
+                setScalarQ(qi);
         }
 
         public static int[][] multiplyMatrixAndSubMatrix(int[][] MX, int[][] MY,
@@ -174,6 +177,17 @@ public class Data {
                 C[i] *= a;
             }
             return C;
+        }
+
+        public synchronized void compareScalarQ(int qi) {
+            if (first) {
+                if (qi < Data.q) {
+                    Data.q = qi;
+                }
+            } else {
+                Data.q = qi;
+                first = true;
+            }
         }
     }
     }
