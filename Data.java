@@ -1,5 +1,7 @@
 public class Data {
     public  static int N = 8;
+
+    public static int H = 2;
     public static int c;
     public static int p;
     public static int q;
@@ -46,6 +48,54 @@ public class Data {
     }
     public static synchronized void setScalarP(int p) {
         Data.p = p;
+    }
+
+
+    public static int[][] multiplyMatrixAndSubMatrix(int[][] MX, int[][] MY,
+                                                     int start, int end) {
+
+        int [][] MT = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            int g = start;
+            for (int j = start; j < end; j++) {
+                MT[i][g] = 0;
+                for (int k = 0; k < N; k++) {
+                    MT[i][g] += MX[i][k] * MY[k][j];
+                }
+                g++;
+            }
+        }
+        return MT;
+    }
+
+    public static int[] multiplyVectorBySubMatrix(int[] A, int[][] MD, int
+            start, int end) {
+        int[] K = new int[N];
+        for (int i = 0; i < end - start; i++) {
+            for (int j = 0; j < N; j++) {
+                for (int k = 0; k < MD[j].length; k++) {
+                    K[k] += A[j] * MD[j][k];
+                }
+            }
+        }
+        return K;
+    }
+
+    private static int[] multiplySubVectorByConstant(int a, int[] C, int
+            start, int end) {
+        for (int i = start; i < end; i++) {
+            C[i] *= a;
+        }
+        return C;
+    }
+
+    //here I am creating a scalar c
+    private static int []createScalarC(int start, int end){
+        int []M = multiplyVectorBySubMatrix(Data.A,Data.MB,start,end);
+        int [][] MT = multiplyMatrixAndSubMatrix(Data.MZ,Data.MR,start,end);
+        int [] L = Data.multiplySubVectorByConstant(Data.p,Data.M,start,end);
+//        int [] V =
+        return M;
     }
 
 
@@ -143,46 +193,7 @@ public class Data {
             return min;
         }
 
-        public synchronized void findMinQ(int qi) {
-            if (Data.q > qi)
-                setScalarQ(qi);
-        }
 
-        public static int[][] multiplyMatrixAndSubMatrix(int[][] MX, int[][] MY,
-                                                         int start, int end, int[][] MT) {
-            for (int i = 0; i < N; i++) {
-                int g = start;
-                for (int j = start; j < end; j++) {
-                    MT[i][g] = 0;
-                    for (int k = 0; k < N; k++) {
-                        MT[i][g] += MX[i][k] * MY[k][j];
-                    }
-                    g++;
-                }
-            }
-            return MT;
-        }
-
-        public static int[] multiplyVectorBySubMatrix(int[] A, int[][] MD, int
-                start, int end) {
-            int[] K = new int[N];
-            for (int i = 0; i < end - start; i++) {
-                for (int j = 0; j < N; j++) {
-                    for (int k = 0; k < MD[j].length; k++) {
-                        K[k] += A[j] * MD[j][k];
-                    }
-                }
-            }
-            return K;
-        }
-
-        private static int[] multiplySubVectorByConstant(int a, int[] C, int
-                start, int end) {
-            for (int i = start; i < end; i++) {
-                C[i] *= a;
-            }
-            return C;
-        }
 
         public synchronized void compareScalarQ(int qi) {
             if (first) {

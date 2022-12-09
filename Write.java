@@ -15,12 +15,10 @@ public class Write {
         return Vector;
     }
 
-//    public static void writePartVector(int [] vectorDestination, int [] vectorSource){
-//        for (int i = 0; i < Data.N; i++) {
-//            Vector[i] = 1+i;
-//        }
-//        return Vector;
-//    }
+    public static void writePartVector(int [] VectorSource, int [] VectorDestination, int start, int end){
+        System.arraycopy(VectorSource,start,VectorDestination,end,Data.H);
+    }
+
 
 
 }

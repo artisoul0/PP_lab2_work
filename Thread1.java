@@ -10,8 +10,7 @@ public class Thread1 extends Thread{
         System.out.println("T1 data has been successfully entered");
         Data.synchroMonitor.signalInput();
         Data.synchroMonitor.waitForInput();
-        //part of M
-        Data.MonitorForSynchronization.multiplyVectorBySubMatrix(Data.A,Data.MB,0,H);
+
 
 
         int q1 = Data.synchroMonitor.minQ(0, H);
@@ -21,6 +20,11 @@ public class Thread1 extends Thread{
         Data.synchroMonitor.waitForMinQ();
         int q1_copied = Data.synchroMonitor.copyScalarQ();
         int p1_copied = Data.synchroMonitor.copyScalarP();
+
+
+
+//        int aloneScalarC = Data.multiplyVectorBySubMatrix(Data.A,Data.MB)
+//        Write.writePartVector(partVectorM,Data.M,0,H);
         System.out.println(q1 + " q1");
         System.out.println(q1_copied + "  q1_copied");
     }
