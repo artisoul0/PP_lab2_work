@@ -25,5 +25,11 @@ public class Thread1 extends Thread{
         q1 = Data.resourcesMonitor.copyScalarQ();
 
         System.out.println(q1 + " q1");
+
+        int p1 = Data.resourcesMonitor.copyScalarP();
+
+        Data.calculateResultPart(p1,q1,0,Data.H);
+
+        Data.inputOutputMonitor.OutputSignal();
     }
 }

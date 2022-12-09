@@ -31,6 +31,12 @@ public class Thread3 extends Thread{
 
         System.out.println(q3 + " q3");
 
+        int p3 = Data.resourcesMonitor.copyScalarP();
+
+        Data.calculateResultPart(p3,q3,H*2,H*3);
+
+        Data.inputOutputMonitor.OutputSignal();
+
 
     }
 }

@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Data {
     public static final int N = 4;
@@ -57,7 +58,7 @@ public class Data {
         public int q,c,p;
         public int[] A, B;
         public int[][] MZ, MB, MR;
-        private static final int e = 0;
+        private static int e = 0;
         private boolean first = false;
         public synchronized void setMB(int[][] MB) {
             this.MB = MB;
@@ -109,25 +110,6 @@ public class Data {
 
 
 
-//        public void calculateResultPart(int di, int ai, int start, int end) {
-//            writeToResult(
-//                    sumMatrix(
-//                            multiplySubMatrixByConstant(di,
-//                                    multiplyMatrixAndSubMatrix(MB,
-//                                            multiplyMatrixAndSubMatrix(MC, MM, start,
-//                                                    end, new int[N][N]),
-//                                            start, end, new int[N][N]), start, end),
-//                            multiplySubMatrixByConstant(ai, MC, start, end),
-//                            start, end),
-//                    start, end);
-//        }
-//        private static void writeToResult(int[][] MW, int start, int end) {
-//            for (int i = 0; i < N; i++) {
-//                for (int j = start; j < end; j++) {
-//                    MO[i][j] = MW[i][j];
-//                }
-//            }
-//        }
         public int minB(int start, int end) {
             int min = B[start];
             for (int i = start; i < end; i++) {
@@ -136,15 +118,61 @@ public class Data {
             return min;
         }
     }
-    private static int[][] sumMatrix(int[][] X, int[][] Y, int start, int
-            end) {
-        for (int j = 0; j < N; j++) {
-            for (int i = start; i < end; i++) {
-                X[j][i] = X[j][i] + Y[j][i];
+
+
+
+    public static void calculateResultPart(int pi, int qi, int start, int end) {
+//        int scalarE = Data.multiplyMatrixAndSubMatrix(Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,0,Data.H),Data.resourcesMonitor.MR,0,Data.H,MT)
+        int [] M = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A, Data.resourcesMonitor.MB,start,end); //M
+        int [][] MT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ, Data.resourcesMonitor.MR,start,end, new int [N][N]); //MT
+        int [] L = Data.multiplySubVectorByConstant(pi, M,start,end); // L
+        int [] N = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, MT,start,end); //N
+        int c = Data.multiplyVectorAndSubVector(L,N,start,end);
+        System.out.println(Arrays.toString(L) + " L");
+        System.out.println(Arrays.toString(N) + " N");
+        int e = c+qi;
+
+        System.out.println(e + " e");
+        System.out.println(c + " c");
+    }
+
+
+    public static int[] multiplyVectorBySubMatrix(int[] A, int[][] MD, int start, int end) {
+        int[] K = new int[N];
+        for (int i = 0; i < end - start; i++) {
+            for (int j = 0; j < N; j++) {
+                for (int k = 0; k < MD[j].length; k++) {
+                    K[k] += A[j] * MD[j][k];
+                }
             }
         }
-        return X;
+        return K;
     }
+    private static void writeToResult(int e) {
+        ResourcesMonitor.e = e;
+    }
+    public static int multiplyVectorAndSubVector(int[] X, int[] Y, int start, int end)
+    {
+        int result = 0;
+        for (int i = start; i < end; i++)
+        {
+            result += X[i] * Y[i];
+        }
+        return result;
+    }
+
+
+
+
+    private static int[] multiplySubVectorByConstant(int a, int[] C, int start, int end) {
+        for (int i = start; i < end; i++) {
+            C[i] *= a;
+        }
+        return C;
+    }
+
+
+
 
     public static int[][] multiplyMatrixAndSubMatrix(int[][] MX, int[][] MY,
                                                      int start, int end, int[][] MT) {
