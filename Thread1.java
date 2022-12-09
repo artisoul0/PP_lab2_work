@@ -22,6 +22,8 @@ public class Thread1 extends Thread{
         Data.synchronizationMonitor.signalCalculatedScalarQ();
         Data.synchronizationMonitor.waitForCalculatedScalarQ();
 
+        q1 = Data.resourcesMonitor.copyScalarQ();
 
+        System.out.println(q1 + " q1");
     }
 }

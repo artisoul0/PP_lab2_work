@@ -12,6 +12,9 @@ public class Thread3 extends Thread{
         Write.fillVectorByOne(B);
         Write.fillMatrixByOne(MB);
 
+        Data.resourcesMonitor.setB(B);
+        Data.resourcesMonitor.setMB(MB);
+
         Data.inputOutputMonitor.inputSignal();
         try {
             Data.inputOutputMonitor.waitForInputSignal();
@@ -24,16 +27,10 @@ public class Thread3 extends Thread{
         Data.synchronizationMonitor.signalCalculatedScalarQ();
         Data.synchronizationMonitor.waitForCalculatedScalarQ();
 
+        q3 = Data.resourcesMonitor.copyScalarQ();
 
-//        System.out.println("T3 data has been successfully entered");
-//        Data.synchroMonitor.signalInput();
-//        Data.synchroMonitor.waitForInput();
-//        int q3 = Data.synchroMonitor.minQ(H*2, H*3);
-//        Data.synchroMonitor.compareScalarQ(q3);
-//        Data.synchroMonitor.signalMinQ();
-//        Data.synchroMonitor.waitForMinQ();
-//        System.out.println(Arrays.toString(Data.B));
-//        int q3_copied = Data.synchroMonitor.copyScalarQ();
-//        int p3_copied = Data.synchroMonitor.copyScalarP();
+        System.out.println(q3 + " q3");
+
+
     }
 }

@@ -73,7 +73,7 @@ public class Data {
         }
 
         public synchronized void setB(int[] B) {
-            this.B = B;
+            Data.resourcesMonitor.B = B;
         }
         public synchronized void setScalarP(int p) {
             this.p = p;
@@ -129,7 +129,7 @@ public class Data {
 //            }
 //        }
         public int minB(int start, int end) {
-            int min = B[start];
+            int min = Data.resourcesMonitor.B[start];
             for (int i = start; i < end; i++) {
                 min = Math.min(min, B[i]);
             }

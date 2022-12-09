@@ -20,6 +20,6 @@ public class Thread4 extends Thread{
 
         q4 = Data.resourcesMonitor.copyScalarQ();
 
-        System.out.println(q4);
+        System.out.println(q4 + " q4");
     }
 }

@@ -27,6 +27,9 @@ public class Thread2 extends Thread{
         Data.synchronizationMonitor.signalCalculatedScalarQ();
         Data.synchronizationMonitor.waitForCalculatedScalarQ();
 
+        q2 = Data.resourcesMonitor.copyScalarQ();
+
+        System.out.println(q2 + " q2");
 //        System.out.println("T2 data has been successfully entered");
 //        Data.synchroMonitor.signalInput();
 //        Data.synchroMonitor.waitForInput();
