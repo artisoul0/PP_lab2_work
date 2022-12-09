@@ -10,7 +10,7 @@ public class Write {
 
     public static int [] fillVectorByOne(int [] Vector){
         for (int i = 0; i < Data.N; i++) {
-            Vector[i] = 1+i;
+            Vector[i] = 6+i;
         }
         return Vector;
     }
