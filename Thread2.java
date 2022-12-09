@@ -11,22 +11,33 @@ public class Thread2 extends Thread{
         int e = 0;
         int c = 0;
         Write.fillVectorByOne(A);
-        Data.setA(A);
         Write.fillMatrixByOne(MR);
-        Data.setMR(MR);
-        System.out.println("T2 data has been successfully entered");
-        Data.synchroMonitor.signalInput();
-        Data.synchroMonitor.waitForInput();
-        int q2 = Data.synchroMonitor.minQ(H, H*2);
-        Data.synchroMonitor.compareScalarQ(q2);
-        Data.synchroMonitor.signalMinQ();
-        Data.synchroMonitor.waitForMinQ();
-        System.out.println(Arrays.toString(Data.B));
-        int q2_copied = Data.synchroMonitor.copyScalarQ();
-        int p2_copied = Data.synchroMonitor.copyScalarP();
+        Data.resourcesMonitor.setA(A);
+        Data.resourcesMonitor.setMR(MR);
+
+        Data.inputOutputMonitor.inputSignal();
+        try {
+            Data.inputOutputMonitor.waitForInputSignal();
+        } catch (InterruptedException ev) {
+            throw new RuntimeException(ev);
+        }
+
+        int q2 = Data.resourcesMonitor.minB(H,H*2);
+        Data.resourcesMonitor.compareScalarQ(q2);
+        Data.synchronizationMonitor.signalCalculatedScalarQ();
+        Data.synchronizationMonitor.waitForCalculatedScalarQ();
+
+//        System.out.println("T2 data has been successfully entered");
+//        Data.synchroMonitor.signalInput();
+//        Data.synchroMonitor.waitForInput();
+//        int q2 = Data.synchroMonitor.minQ(H, H*2);
+//        Data.synchroMonitor.compareScalarQ(q2);
+//        Data.synchroMonitor.signalMinQ();
+//        Data.synchroMonitor.waitForMinQ();
+//        System.out.println(Arrays.toString(Data.B));
+//        int q2_copied = Data.synchroMonitor.copyScalarQ();
+//        int p2_copied = Data.synchroMonitor.copyScalarP();
 //        int c2_copied = Data.synchroMonitor.copyScalarC();
 //        e = p2_copied + c2_copied;
-        System.out.println(q2 + " q2");
-        System.out.println(q2_copied + "  q2_copied");
     }
 }
