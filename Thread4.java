@@ -32,5 +32,12 @@ public class Thread4 extends Thread{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        int []partOfVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,Data.H*3,Data.H*4);
+
+        Data.writePartVector(partOfVectorM,0,Data.resourcesMonitor.M, H*3,H);
+
+        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
+        System.out.println(Arrays.toString(Data.resourcesMonitor.M));
     }
 }

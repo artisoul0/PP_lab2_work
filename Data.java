@@ -1,7 +1,5 @@
-import java.util.Arrays;
-
 public class Data {
-    public static final int N = 4;
+    public static final int N = 8;
     public static final int P = 4;
     public static int H = N / P;
     public static ResourcesMonitor resourcesMonitor = new ResourcesMonitor();
@@ -56,7 +54,9 @@ public class Data {
     }
     public static class ResourcesMonitor {
         public int q,c,p;
-        public int[] A, B, M, L, N;
+        public int[] A, B, L, N;
+
+        public int [] M = new int[Data.N];
         public int[][] MZ, MB, MR, MT;
         private static int e = 0;
         private boolean first = false;
@@ -144,17 +144,26 @@ public class Data {
 //    }
 
 
+
+    //changed method to get only a part
     public static int[] multiplyVectorBySubMatrix(int[] A, int[][] MB, int start, int end) {
-        int[] K = new int[N];
-        for (int i = 0; i < end - start; i++) {
+        int[] K = new int[H];
+        for (int i = 0; i < 1; i++) {
             for (int j = 0; j < N; j++) {
-                for (int k = 0; k < MB[j].length; k++) {
+                for (int k = 0; k < H; k++) { //MB[j].length in k
                     K[k] += A[j] * MB[j][k];
                 }
             }
         }
         return K;
     }
+
+
+    public static synchronized void writePartVector(int[] Vector, int SourcePos, int[] VectorDest, int DestPosition, int amount){
+        System.arraycopy(Vector,SourcePos,VectorDest, DestPosition, amount );
+    }
+
+
     private static void writeToResult(int e) {
         ResourcesMonitor.e = e;
     }
