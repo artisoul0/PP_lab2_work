@@ -56,13 +56,21 @@ public class Data {
     }
     public static class ResourcesMonitor {
         public int q,c,p;
-        public int[] A, B;
-        public int[][] MZ, MB, MR;
+        public int[] A, B, M, L, N;
+        public int[][] MZ, MB, MR, MT;
         private static int e = 0;
         private boolean first = false;
         public synchronized void setMB(int[][] MB) {
             this.MB = MB;
         }
+
+        public synchronized void setM(int [] M){this.M = M;}
+
+        public synchronized void setL(int [] L){this.L = L;}
+
+        public synchronized void setN(int [] N){this.N = N;}
+
+        public synchronized void setMT(int [][] MT){this.MT = MT;}
         public synchronized void setMR(int[][] MR) {
             this.MR = MR;
         }
@@ -121,28 +129,27 @@ public class Data {
 
 
 
-    public static void calculateResultPart(int pi, int qi, int start, int end) {
-//        int scalarE = Data.multiplyMatrixAndSubMatrix(Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,0,Data.H),Data.resourcesMonitor.MR,0,Data.H,MT)
-        int [] M = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A, Data.resourcesMonitor.MB,start,end); //M
-        int [][] MT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ, Data.resourcesMonitor.MR,start,end, new int [N][N]); //MT
-        int [] L = Data.multiplySubVectorByConstant(pi, M,start,end); // L
-        int [] N = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, MT,start,end); //N
-        int c = Data.multiplyVectorAndSubVector(L,N,start,end);
-        System.out.println(Arrays.toString(L) + " L");
-        System.out.println(Arrays.toString(N) + " N");
-        int e = c+qi;
+//    public static void calculateResultPart(int pi, int qi, int start, int end) {
+//        int [] M = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A, Data.resourcesMonitor.MB,start,end); //M
+//        int [][] MT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ, Data.resourcesMonitor.MR,start,end, new int [N][N]); //MT
+//        int [] L = Data.multiplySubVectorByConstant(pi, M,start,end); // L
+//        int [] N = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, MT,start,end); //N
+//        int c = Data.multiplyVectorAndSubVector(L,N,start,end);
+//        System.out.println(Arrays.toString(L) + " L");
+//        System.out.println(Arrays.toString(N) + " N");
+//        int e = c+qi;
+//
+//        System.out.println(e + " e");
+//        System.out.println(c + " c");
+//    }
 
-        System.out.println(e + " e");
-        System.out.println(c + " c");
-    }
 
-
-    public static int[] multiplyVectorBySubMatrix(int[] A, int[][] MD, int start, int end) {
+    public static int[] multiplyVectorBySubMatrix(int[] A, int[][] MB, int start, int end) {
         int[] K = new int[N];
         for (int i = 0; i < end - start; i++) {
             for (int j = 0; j < N; j++) {
-                for (int k = 0; k < MD[j].length; k++) {
-                    K[k] += A[j] * MD[j][k];
+                for (int k = 0; k < MB[j].length; k++) {
+                    K[k] += A[j] * MB[j][k];
                 }
             }
         }

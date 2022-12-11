@@ -25,7 +25,7 @@ public class Thread4 extends Thread{
 
         System.out.println(q4 + " q4");
 
-        Data.calculateResultPart(p4,q4,H*3,H*4);
+//        Data.calculateResultPart(p4,q4,H*3,H*4);
 
         try {
             Data.inputOutputMonitor.WaitForOutputSignal();

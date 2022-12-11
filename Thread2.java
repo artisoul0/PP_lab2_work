@@ -32,7 +32,8 @@ public class Thread2 extends Thread{
         System.out.println(q2 + " q2");
         int p2 = Data.resourcesMonitor.copyScalarP();
 
-        Data.calculateResultPart(p2,q2,H,H*2);
+//        Data.calculateResultPart(p2,q2,H,H*2);
+
 
         Data.inputOutputMonitor.OutputSignal();
 //        System.out.println("T2 data has been successfully entered");

@@ -9,6 +9,7 @@ public class Thread3 extends Thread{
         int [] B = new int[Data.N];
         int [][] MB = new int[Data.N][Data.N];
         int p = 1;
+        Data.resourcesMonitor.setScalarP(1);
         Write.fillVectorByOne(B);
         Write.fillMatrixByOne(MB);
 
@@ -33,7 +34,7 @@ public class Thread3 extends Thread{
 
         int p3 = Data.resourcesMonitor.copyScalarP();
 
-        Data.calculateResultPart(p3,q3,H*2,H*3);
+//        Data.calculateResultPart(p3,q3,H*2,H*3);
 
         Data.inputOutputMonitor.OutputSignal();
 

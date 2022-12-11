@@ -17,6 +17,7 @@ public class Thread1 extends Thread{
             throw new RuntimeException(e);
         }
 
+        //minimal in vector B scalar q
         int q1 = Data.resourcesMonitor.minB(0,Data.H);
         Data.resourcesMonitor.compareScalarQ(q1);
         Data.synchronizationMonitor.signalCalculatedScalarQ();
@@ -28,7 +29,15 @@ public class Thread1 extends Thread{
 
         int p1 = Data.resourcesMonitor.copyScalarP();
 
-        Data.calculateResultPart(p1,q1,0,Data.H);
+        System.out.println(p1 + " p1");
+
+        int []result = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,0,Data.H);
+
+        System.out.println(Arrays.toString(result) + " part in M");
+
+
+
+//        Data.calculateResultPart(p1,q1,0,Data.H);
 
         Data.inputOutputMonitor.OutputSignal();
     }
