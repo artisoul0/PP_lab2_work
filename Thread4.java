@@ -34,11 +34,13 @@ public class Thread4 extends Thread{
         }
 
         //set M
-        int []partOfVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,Data.H*3,Data.H*4);
+        int []partOfVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.getA(),Data.resourcesMonitor.getMB(),Data.H*3,Data.H*4);
         Data.writePartVector(partOfVectorM,0,Data.resourcesMonitor.M, H*3,H);
 
+        Data.synchronizationMonitor.signalCalculatedVectorM();
+
         //set MT
-        int [][] partOfMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ,Data.resourcesMonitor.MR,Data.H*3, Data.H*4);
+        int [][] partOfMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.getMZ(),Data.resourcesMonitor.getMR(),Data.H*3, Data.H*4);
 
 //        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " MT in T4");
 
@@ -47,12 +49,13 @@ public class Thread4 extends Thread{
 
 
         //set L
+        Data.synchronizationMonitor.waitForCalculatedVectorM();
+        int []partOfVectorL = Data.multiplyConstantBySubVector(p4,Data.resourcesMonitor.getM(),Data.H*3,Data.H*4);
 
-        int []partOfVectorL = Data.multiplyConstantBySubVector(p4,partOfVectorM,Data.H*3,Data.H*4);
 
-        System.out.println(Arrays.toString(partOfVectorL) + " Part L in T4");
+        System.out.println(Arrays.toString(Data.resourcesMonitor.getL()) + " L in T4");
 
-        System.out.println(Arrays.toString(Data.resourcesMonitor.L) + " L in T4");
+        System.out.println(Arrays.toString(Data.resourcesMonitor.getM()) + " M in Thread");
 
     }
 }

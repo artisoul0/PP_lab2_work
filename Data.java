@@ -23,6 +23,24 @@ public class Data {
                 e.printStackTrace();
             }
         }
+
+        public synchronized void signalCalculatedVectorM() {
+            F1++;
+            if (F1 >= 4) {
+                notifyAll();
+            }
+        }
+
+        public synchronized void waitForCalculatedVectorM() {
+            try {
+
+                if (F1 < 4) {
+                    wait();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     public static class inputOutputMonitor {
         private int F1 = 0;
@@ -70,6 +88,19 @@ public class Data {
         }
 
         public synchronized void setM(int [] M){this.M = M;}
+
+        public synchronized int[] getM(){return M;}
+
+        public synchronized int[] getL(){return L;}
+
+        public synchronized int[][] getMZ(){return MZ;}
+
+
+        public synchronized int[][] getMR(){return MR;}
+
+        public synchronized int[] getA(){return A;}
+
+        public synchronized int[][] getMB(){return MB;}
 
         public synchronized void setL(int [] L){this.L = L;}
 
@@ -204,8 +235,10 @@ public class Data {
 
 
     public static int[] multiplyConstantBySubVector(int a, int[] C, int start, int end) {
+        int count = 0;
         for (int i = start; i < end; i++) {
-            Data.resourcesMonitor.L[i] = C[i] * a;
+            Data.resourcesMonitor.L[i] = C[count] * a;
+            count++;
         }
         return C;
     }
