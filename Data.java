@@ -54,8 +54,11 @@ public class Data {
     }
     public static class ResourcesMonitor {
         public int q,c,p;
-        public int[] A, B, L, N;
+        public int[] A, B;
 
+        public int [] L = new int[Data.N];
+
+        public int [] N = new int[Data.N];
         public int [] M = new int[Data.N];
         public int[][] MZ, MB, MR;
 
@@ -200,9 +203,9 @@ public class Data {
 
 
 
-    private static int[] multiplySubVectorByConstant(int a, int[] C, int start, int end) {
+    public static int[] multiplyConstantBySubVector(int a, int[] C, int start, int end) {
         for (int i = start; i < end; i++) {
-            C[i] *= a;
+            Data.resourcesMonitor.L[i] = C[i] * a;
         }
         return C;
     }

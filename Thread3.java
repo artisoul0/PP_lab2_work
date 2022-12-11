@@ -8,8 +8,8 @@ public class Thread3 extends Thread{
         int H = Data.N/4;
         int [] B = new int[Data.N];
         int [][] MB = new int[Data.N][Data.N];
-        int p = 1;
-        Data.resourcesMonitor.setScalarP(1);
+        int p = 2;
+        Data.resourcesMonitor.setScalarP(p);
         Write.fillVectorByOne(B);
         Write.fillMatrixByOne(MB);
 
@@ -47,9 +47,17 @@ public class Thread3 extends Thread{
 
         int [][] partOfMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ,Data.resourcesMonitor.MR,Data.H*2, Data.H*3);
 
-        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " MT in T3");
+//        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " MT in T3");
 
 //        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
+
+        //set L
+
+        int []partOfVectorL = Data.multiplyConstantBySubVector(p3,partOfVectorM,Data.H*2,Data.H*3);
+
+        System.out.println(Arrays.toString(partOfVectorL) + " Part L in T3");
+
+        System.out.println(Arrays.toString(Data.resourcesMonitor.L) + " L in T3");
 
     }
 }

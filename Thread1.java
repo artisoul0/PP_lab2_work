@@ -44,9 +44,17 @@ public class Thread1 extends Thread{
 
         int [][] partOfMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ,Data.resourcesMonitor.MR,0, Data.H);
 
-        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " MT in T1");
+//        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " MT in T1");
 
 //        Data.calculateResultPart(p1,q1,0,Data.H);
+
+        //set L
+
+        int []partOfVectorL = Data.multiplyConstantBySubVector(p1,partOfVectorM,0,Data.H);
+
+        System.out.println(Arrays.toString(partOfVectorL) + " Part L in T1");
+
+        System.out.println(Arrays.toString(Data.resourcesMonitor.L) + " L in T1");
 
         Data.inputOutputMonitor.OutputSignal();
     }
