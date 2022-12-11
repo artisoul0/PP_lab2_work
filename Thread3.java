@@ -38,11 +38,18 @@ public class Thread3 extends Thread{
 
         Data.inputOutputMonitor.OutputSignal();
 
+        //set M
         int []partOfVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,Data.H*2,Data.H*3);
 
         Data.writePartVector(partOfVectorM,0,Data.resourcesMonitor.M, H*2,H);
 
-        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
+        //set MT
+
+        int [][] partOfMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ,Data.resourcesMonitor.MR,Data.H*2, Data.H*3);
+
+        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " MT in T3");
+
+//        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
 
     }
 }

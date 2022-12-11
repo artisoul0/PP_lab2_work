@@ -38,11 +38,19 @@ public class Thread2 extends Thread{
         Data.inputOutputMonitor.OutputSignal();
 
 
+        //set M
         int []partOfVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,Data.H,Data.H*2);
 
         Data.writePartVector(partOfVectorM,0,Data.resourcesMonitor.M, H,H);
 
-        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
+        //set MT
+
+        int [][] partOfMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ,Data.resourcesMonitor.MR,Data.H, Data.H*2);
+
+
+        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " MT in T2");
+
+//        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
 
 //        System.out.println("T2 data has been successfully entered");
 //        Data.synchroMonitor.signalInput();

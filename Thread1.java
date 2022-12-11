@@ -31,13 +31,20 @@ public class Thread1 extends Thread{
 
         System.out.println(p1 + " p1");
 
+
+        //set M
+
         int []partOfVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,0,Data.H);
 
         Data.writePartVector(partOfVectorM,0,Data.resourcesMonitor.M,0,H);
 
-        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
+//        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
 
+        //set MT
 
+        int [][] partOfMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ,Data.resourcesMonitor.MR,0, Data.H);
+
+        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " MT in T1");
 
 //        Data.calculateResultPart(p1,q1,0,Data.H);
 

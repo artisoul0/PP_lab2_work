@@ -33,11 +33,16 @@ public class Thread4 extends Thread{
             throw new RuntimeException(e);
         }
 
+        //set M
         int []partOfVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,Data.H*3,Data.H*4);
-
         Data.writePartVector(partOfVectorM,0,Data.resourcesMonitor.M, H*3,H);
 
-        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
+        //set MT
+        int [][] partOfMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ,Data.resourcesMonitor.MR,Data.H*3, Data.H*4);
+
+        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " MT in T4");
+
+//        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
         System.out.println(Arrays.toString(Data.resourcesMonitor.M));
     }
 }

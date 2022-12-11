@@ -57,7 +57,9 @@ public class Data {
         public int[] A, B, L, N;
 
         public int [] M = new int[Data.N];
-        public int[][] MZ, MB, MR, MT;
+        public int[][] MZ, MB, MR;
+
+        public int [][] MT = new int[Data.N][Data.N];
         private static int e = 0;
         private boolean first = false;
         public synchronized void setMB(int[][] MB) {
@@ -158,6 +160,24 @@ public class Data {
         return K;
     }
 
+    public static synchronized int[][] multiplyMatrixAndSubMatrix(int[][] MZ, int[][] MR, int start, int end) {
+//        int [][] Matrix = new int[N][N];
+
+        for (int i = 0; i < N; i++) {
+            int g = start;
+            for (int j = start; j < end; j++) {
+                Data.resourcesMonitor.MT[i][g] = 0;
+                for (int k = 0; k < N; k++) {
+                    Data.resourcesMonitor.MT[i][g] += MZ[i][k] * MR[k][j];
+                }
+                g++;
+            }
+        }
+        return Data.resourcesMonitor.MT;
+    }
+
+
+
 
     public static synchronized void writePartVector(int[] Vector, int SourcePos, int[] VectorDest, int DestPosition, int amount){
         System.arraycopy(Vector,SourcePos,VectorDest, DestPosition, amount );
@@ -190,20 +210,6 @@ public class Data {
 
 
 
-    public static int[][] multiplyMatrixAndSubMatrix(int[][] MX, int[][] MY,
-                                                     int start, int end, int[][] MT) {
-        for (int i = 0; i < N; i++) {
-            int g = start;
-            for (int j = start; j < end; j++) {
-                MT[i][g] = 0;
-                for (int k = 0; k < N; k++) {
-                    MT[i][g] += MX[i][k] * MY[k][j];
-                }
-                g++;
-            }
-        }
-        return MT;
-    }
     public static int[][] multiplySubMatrixByConstant(int a, int[][] MX, int
             start, int end) {
         for (int j = 0; j < N; j++) {
