@@ -51,6 +51,16 @@ public class Thread1 extends Thread{
 
         System.out.println(Arrays.deepToString(partMatrixMT) + " - 1 part MT");
         System.out.println(Arrays.deepToString(Data.resourcesMonitor.getMT()) + " My MT by method 1");
+
+        // set L
+        int [] partVectorL = Data.multiplyConstantBySubVector(p1,Data.resourcesMonitor.getM(),0,Data.H);
+        Data.writeVectorResult(partVectorL,0,Data.resourcesMonitor.L,0,Data.H);
+        System.out.println(Arrays.toString(partVectorL) + " L in T1");
+
+        System.out.println(Arrays.toString(Data.resourcesMonitor.getL()) + " : common L");
+
+        // set N
+        int [] partVectorN = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, Data.resourcesMonitor.getMT(), 0, Data.H);
     }
 }
 

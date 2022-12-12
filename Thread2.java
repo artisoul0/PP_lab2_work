@@ -56,5 +56,10 @@ public class Thread2 extends Thread{
 
         System.out.println(Arrays.deepToString(partMatrixMT) + " - 2 part MT");
         System.out.println(Arrays.deepToString(Data.resourcesMonitor.getMT()) + " My MT by method 2");
+
+        // set L
+        int [] partVectorL = Data.multiplyConstantBySubVector(p2,Data.resourcesMonitor.getM(),Data.H,Data.H*2);
+        Data.writeVectorResult(partVectorL,0,Data.resourcesMonitor.L,Data.H,Data.H);
+        System.out.println(Arrays.toString(partVectorL) + " L in T2");
     }
 }

@@ -76,8 +76,9 @@ public class Data {
     }
     public static class ResourcesMonitor {
         public int q,c,p;
-        public int[] A, L, N;
+        public int[] A, N;
 
+        public int [] L = new int[Data.N];
         public int [] B = new int[Data.N];
 
         public int [] M = new int[Data.N];
@@ -89,6 +90,10 @@ public class Data {
         public synchronized void setMB(int[][] MB) {
             this.MB = MB;
         }
+
+        public synchronized int[] getM(){return M;}
+
+        public synchronized int[] getL(){return L;}
 
         public synchronized int[][] getMT(){return MT;}
 
@@ -194,11 +199,11 @@ public class Data {
 
 
 
-    private static int[] multiplySubVectorByConstant(int a, int[] C, int start, int end) {
+    public static int[] multiplyConstantBySubVector(int a, int[] Vector, int start, int end) {
         for (int i = start; i < end; i++) {
-            C[i] *= a;
+            Vector[i] *= a;
         }
-        return C;
+        return Vector;
     }
 
 

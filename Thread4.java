@@ -44,5 +44,10 @@ public class Thread4 extends Thread{
 
         System.out.println(Arrays.deepToString(partMatrixMT) + " - 4 part MT");
         System.out.println(Arrays.deepToString(Data.resourcesMonitor.getMT()) + " My MT by method 4");
+
+        // set L
+        int [] partVectorL = Data.multiplyConstantBySubVector(p4,Data.resourcesMonitor.getM(),Data.H*3,Data.H*4);
+        Data.writeVectorResult(partVectorL,0,Data.resourcesMonitor.L,Data.H*3,Data.H);
+        System.out.println(Arrays.toString(partVectorL) + " L in T4");
     }
 }
