@@ -72,5 +72,12 @@ public class Thread3 extends Thread{
         Data.writeVectorResult(partVectorN,0,Data.resourcesMonitor.N,Data.H*2,Data.H);
         Data.synchronizationMonitor.signalForCalculatedVectorN();
         Data.synchronizationMonitor.waitForCalculatedVectorN();
+
+        // set scalar c
+        int c3 = Data.multiplyVectorAndSubVector(Data.resourcesMonitor.getL(),Data.resourcesMonitor.getVectorN(),Data.H*2,Data.H*3);
+        Data.resourcesMonitor.setScalarC(c3);
+        System.out.println(c3 + " c3");
+        Data.synchronizationMonitor.signalCalculatedScalarC();
+        Data.synchronizationMonitor.waitForCalculatedScalarC();
     }
 }

@@ -14,6 +14,8 @@ public class Data {
         private int F3 = 0;
 
         private int F4 = 0;
+
+        private int F5 = 0;
         public synchronized void signalCalculatedScalarQ() {
             F1++;
             if (F1 >= 4) {
@@ -24,6 +26,23 @@ public class Data {
             try {
 
                 if (F1 < 4) {
+                    wait();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public synchronized void signalCalculatedScalarC() {
+            F5++;
+            if (F5 >= 4) {
+                notifyAll();
+            }
+        }
+        public synchronized void waitForCalculatedScalarC() {
+            try {
+
+                if (F5 < 4) {
                     wait();
                 }
             } catch (Exception e) {
@@ -132,6 +151,10 @@ public class Data {
             this.MB = MB;
         }
 
+        public synchronized void setScalarC(int c) {
+            this.c = c;
+        }
+
         public synchronized int[] getM(){return M;}
 
         public synchronized int[] getL(){return L;}
@@ -181,6 +204,8 @@ public class Data {
         public synchronized int copyScalarP() {
             return p;
         }
+
+
 
 
 

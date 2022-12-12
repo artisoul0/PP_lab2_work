@@ -72,6 +72,16 @@ public class Thread1 extends Thread{
         Data.synchronizationMonitor.waitForCalculatedVectorN();
         System.out.println(Arrays.toString(Data.resourcesMonitor.getVectorN()) + " : common N");
 
+        // set scalar c
+        int c1 = Data.multiplyVectorAndSubVector(Data.resourcesMonitor.getL(),Data.resourcesMonitor.getVectorN(),0,Data.H);
+        Data.resourcesMonitor.setScalarC(c1);
+        System.out.println(c1 + " c1");
+        Data.synchronizationMonitor.signalCalculatedScalarC();
+        Data.synchronizationMonitor.waitForCalculatedScalarC();
+
+        System.out.println(Data.resourcesMonitor.copyScalarC() + " common scalar c");
+
+
 
     }
 }
