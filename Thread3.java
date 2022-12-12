@@ -8,8 +8,8 @@ public class Thread3 extends Thread{
         int H = Data.N/4;
         int [] B = new int[Data.N];
         int [][] MB = new int[Data.N][Data.N];
-        int p = 2;
-        Data.resourcesMonitor.setScalarP(p);
+        int p = 1;
+        Data.resourcesMonitor.setScalarP(1);
         Write.fillVectorByOne(B);
         Write.fillMatrixByOne(MB);
 
@@ -39,28 +39,18 @@ public class Thread3 extends Thread{
         Data.inputOutputMonitor.OutputSignal();
 
         //set M
-        int []partOfVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.getA(),Data.resourcesMonitor.getMB(),Data.H*2,Data.H*3);
-
-        Data.writePartVector(partOfVectorM,0,Data.resourcesMonitor.M, H*2,H);
-
-        Data.synchronizationMonitor.signalCalculatedVectorM();
+        int []partVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,Data.H*2,Data.H*3);
+        Data.writeVectorResult(partVectorM,0,Data.resourcesMonitor.M,H*2,H);
 
         //set MT
 
-        int [][] partOfMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.getMZ(),Data.resourcesMonitor.getMR(),Data.H*2, Data.H*3);
+        int[][] partMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ, Data.resourcesMonitor.MR,Data.H*2,Data.H*3);
 
-//        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " MT in T3");
-
-//        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
-
-        //set L
-        Data.synchronizationMonitor.waitForCalculatedVectorM();
-        int []partOfVectorL = Data.multiplyConstantBySubVector(p3,Data.resourcesMonitor.getM(),Data.H*2,Data.H*3);
+        Data.writeRealMatrix(Data.resourcesMonitor.MT,partMatrixMT,2);
+        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " My MT by method#3");
 
 
-        System.out.println(Arrays.toString(Data.resourcesMonitor.getL()) + " L in T3");
 
-        System.out.println(Arrays.toString(Data.resourcesMonitor.getM()) + " M in Thread");
 
     }
 }

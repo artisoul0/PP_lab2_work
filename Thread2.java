@@ -37,44 +37,17 @@ public class Thread2 extends Thread{
 
         Data.inputOutputMonitor.OutputSignal();
 
-
         //set M
-        int []partOfVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.getA(),Data.resourcesMonitor.getMB(),Data.H,Data.H*2);
-
-        Data.writePartVector(partOfVectorM,0,Data.resourcesMonitor.M, H,H);
-
-        Data.synchronizationMonitor.signalCalculatedVectorM();
+        int []partVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,Data.H,Data.H*2);
+        Data.writeVectorResult(partVectorM,0,Data.resourcesMonitor.M,H,H);
 
         //set MT
 
-        int [][] partOfMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.getMZ(),Data.resourcesMonitor.getMR(),Data.H, Data.H*2);
+        int[][] partMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ, Data.resourcesMonitor.MR,Data.H,Data.H*2);
+
+        Data.writeRealMatrix(Data.resourcesMonitor.MT,partMatrixMT,1);
+        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " My MT by method#2");
 
 
-        //set L
-        Data.synchronizationMonitor.waitForCalculatedVectorM();
-        int []partOfVectorL = Data.multiplyConstantBySubVector(p2,Data.resourcesMonitor.getM(),Data.H,Data.H*2);
-
-
-        System.out.println(Arrays.toString(Data.resourcesMonitor.getL()) + " L in T2");
-
-        System.out.println(Arrays.toString(Data.resourcesMonitor.getM()) + " M in Thread");
-
-
-//        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " MT in T2");
-
-//        System.out.println(Arrays.toString(partOfVectorM) + " part in M");
-
-//        System.out.println("T2 data has been successfully entered");
-//        Data.synchroMonitor.signalInput();
-//        Data.synchroMonitor.waitForInput();
-//        int q2 = Data.synchroMonitor.minQ(H, H*2);
-//        Data.synchroMonitor.compareScalarQ(q2);
-//        Data.synchroMonitor.signalMinQ();
-//        Data.synchroMonitor.waitForMinQ();
-//        System.out.println(Arrays.toString(Data.B));
-//        int q2_copied = Data.synchroMonitor.copyScalarQ();
-//        int p2_copied = Data.synchroMonitor.copyScalarP();
-//        int c2_copied = Data.synchroMonitor.copyScalarC();
-//        e = p2_copied + c2_copied;
     }
 }

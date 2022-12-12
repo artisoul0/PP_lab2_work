@@ -1,5 +1,7 @@
+import java.util.Arrays;
+
 public class Data {
-    public static final int N = 8;
+    public static final int N = 4;
     public static final int P = 4;
     public static int H = N / P;
     public static ResourcesMonitor resourcesMonitor = new ResourcesMonitor();
@@ -14,24 +16,6 @@ public class Data {
             }
         }
         public synchronized void waitForCalculatedScalarQ() {
-            try {
-
-                if (F1 < 4) {
-                    wait();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        public synchronized void signalCalculatedVectorM() {
-            F1++;
-            if (F1 >= 4) {
-                notifyAll();
-            }
-        }
-
-        public synchronized void waitForCalculatedVectorM() {
             try {
 
                 if (F1 < 4) {
@@ -72,11 +56,10 @@ public class Data {
     }
     public static class ResourcesMonitor {
         public int q,c,p;
-        public int[] A, B;
+        public int[] A, L, N;
 
-        public int [] L = new int[Data.N];
+        public int [] B = new int[Data.N];
 
-        public int [] N = new int[Data.N];
         public int [] M = new int[Data.N];
         public int[][] MZ, MB, MR;
 
@@ -88,19 +71,6 @@ public class Data {
         }
 
         public synchronized void setM(int [] M){this.M = M;}
-
-        public synchronized int[] getM(){return M;}
-
-        public synchronized int[] getL(){return L;}
-
-        public synchronized int[][] getMZ(){return MZ;}
-
-
-        public synchronized int[][] getMR(){return MR;}
-
-        public synchronized int[] getA(){return A;}
-
-        public synchronized int[][] getMB(){return MB;}
 
         public synchronized void setL(int [] L){this.L = L;}
 
@@ -124,9 +94,6 @@ public class Data {
             this.p = p;
 
         }
-
-
-
 
         public synchronized int getScalarE() {
             return e;
@@ -155,38 +122,20 @@ public class Data {
 
 
         public int minB(int start, int end) {
-            int min = B[start];
+            int min = Data.resourcesMonitor.B[start];
             for (int i = start; i < end; i++) {
-                min = Math.min(min, B[i]);
+                min = Math.min(min, Data.resourcesMonitor.B[i]);
             }
             return min;
         }
     }
 
 
-
-//    public static void calculateResultPart(int pi, int qi, int start, int end) {
-//        int [] M = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A, Data.resourcesMonitor.MB,start,end); //M
-//        int [][] MT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ, Data.resourcesMonitor.MR,start,end, new int [N][N]); //MT
-//        int [] L = Data.multiplySubVectorByConstant(pi, M,start,end); // L
-//        int [] N = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, MT,start,end); //N
-//        int c = Data.multiplyVectorAndSubVector(L,N,start,end);
-//        System.out.println(Arrays.toString(L) + " L");
-//        System.out.println(Arrays.toString(N) + " N");
-//        int e = c+qi;
-//
-//        System.out.println(e + " e");
-//        System.out.println(c + " c");
-//    }
-
-
-
-    //changed method to get only a part
     public static int[] multiplyVectorBySubMatrix(int[] A, int[][] MB, int start, int end) {
-        int[] K = new int[H];
-        for (int i = 0; i < 1; i++) {
+        int[] K = new int[N];
+        for (int i = 0; i < end - start; i++) {
             for (int j = 0; j < N; j++) {
-                for (int k = 0; k < H; k++) { //MB[j].length in k
+                for (int k = 0; k < MB[j].length; k++) {
                     K[k] += A[j] * MB[j][k];
                 }
             }
@@ -194,27 +143,23 @@ public class Data {
         return K;
     }
 
-    public static synchronized int[][] multiplyMatrixAndSubMatrix(int[][] MZ, int[][] MR, int start, int end) {
-//        int [][] Matrix = new int[N][N];
-
-        for (int i = 0; i < N; i++) {
-            int g = start;
-            for (int j = start; j < end; j++) {
-                Data.resourcesMonitor.MT[i][g] = 0;
-                for (int k = 0; k < N; k++) {
-                    Data.resourcesMonitor.MT[i][g] += MZ[i][k] * MR[k][j];
-                }
-                g++;
-            }
-        }
-        return Data.resourcesMonitor.MT;
+    public static synchronized void writeVectorResult(int [] source, int sourcePos, int [] dest, int destPos, int amount){
+        System.arraycopy(source,sourcePos,dest,destPos,amount);
     }
 
+    public static synchronized void writeMatrixResult(int [][] source, int sourcePos, int [][] dest, int destPos, int amount){
+        for (int i = 0; i < N; i++) {
+                System.arraycopy(source,sourcePos,dest,i,amount);
+        }
 
+    }
 
-
-    public static synchronized void writePartVector(int[] Vector, int SourcePos, int[] VectorDest, int DestPosition, int amount){
-        System.arraycopy(Vector,SourcePos,VectorDest, DestPosition, amount );
+    public static synchronized void writeRealMatrix( int [][] commonResourceMatrix, int [][] source, int start){
+        for (int i = 0; i < Data.N; i++) {
+            for (int j = 0; j < Data.N; j++) {
+                commonResourceMatrix[i][start] = source[i][start];
+            }
+        }
     }
 
 
@@ -234,11 +179,9 @@ public class Data {
 
 
 
-    public static int[] multiplyConstantBySubVector(int a, int[] C, int start, int end) {
-        int count = 0;
+    private static int[] multiplySubVectorByConstant(int a, int[] C, int start, int end) {
         for (int i = start; i < end; i++) {
-            Data.resourcesMonitor.L[i] = C[count] * a;
-            count++;
+            C[i] *= a;
         }
         return C;
     }
@@ -246,6 +189,20 @@ public class Data {
 
 
 
+    public static int[][] multiplyMatrixAndSubMatrix(int[][] MX, int[][] MY, int start, int end) {
+        int [][] Matrix = new int[Data.N][Data.N];
+        for (int i = 0; i < N; i++) {
+            int g = start;
+            for (int j = start; j < end; j++) {
+                Matrix[i][g] = 0;
+                for (int k = 0; k < N; k++) {
+                    Matrix[i][g] += MX[i][k] * MY[k][j];
+                }
+                g++;
+            }
+        }
+        return Matrix;
+    }
     public static int[][] multiplySubMatrixByConstant(int a, int[][] MX, int
             start, int end) {
         for (int j = 0; j < N; j++) {
