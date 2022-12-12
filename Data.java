@@ -134,7 +134,9 @@ public class Data {
         }
     }
     public static class ResourcesMonitor {
-        public int q,c,p;
+        public int q,p;
+
+        public int c = 0;
         public int[] A;
 
         public int [] N = new int[Data.N];
