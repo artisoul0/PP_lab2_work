@@ -44,6 +44,9 @@ public class Thread1 extends Thread{
         // set M
         int []partVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,0,Data.H);
         Data.writeVectorResult(partVectorM,0,Data.resourcesMonitor.M,0,Data.H);
+        Data.synchronizationMonitor.signalForCalculatedVectorM();
+        Data.synchronizationMonitor.waitForCalculatedVectorM();
+        System.out.println(Arrays.toString(Data.resourcesMonitor.M) + " common M");
 
         // set MT
         int[][] partMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ, Data.resourcesMonitor.MR,0,Data.H);
@@ -56,11 +59,18 @@ public class Thread1 extends Thread{
         int [] partVectorL = Data.multiplyConstantBySubVector(p1,Data.resourcesMonitor.getM(),0,Data.H);
         Data.writeVectorResult(partVectorL,0,Data.resourcesMonitor.L,0,Data.H);
         System.out.println(Arrays.toString(partVectorL) + " L in T1");
+        Data.synchronizationMonitor.signalForCalculatedVectorL();
+        Data.synchronizationMonitor.waitForCalculatedVectorL();
 
         System.out.println(Arrays.toString(Data.resourcesMonitor.getL()) + " : common L");
 
         // set N
-        int [] partVectorN = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, Data.resourcesMonitor.getMT(), 0, Data.H);
+        int [] partVectorN = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, Data.resourcesMonitor.MT, 0, Data.H);
+        Data.writeVectorResult(partVectorN,0,Data.resourcesMonitor.N,0,Data.H);
+
+        System.out.println(Arrays.toString(Data.resourcesMonitor.getVectorN()) + " : common N");
+
+
     }
 }
 

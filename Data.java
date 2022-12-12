@@ -10,6 +10,10 @@ public class Data {
     public static class SynchronizationMonitor {
         private int F1 = 0;
         private int F2 = 0;
+
+        private int F3 = 0;
+
+        private int F4 = 0;
         public synchronized void signalCalculatedScalarQ() {
             F1++;
             if (F1 >= 4) {
@@ -27,10 +31,10 @@ public class Data {
             }
         }
 
-        public synchronized void waitForCalculatedMatrixMT() {
+        public synchronized void waitForCalculatedVectorM() {
             try {
                 System.out.println(F2 + " in wait");
-                if (F2 < 3) {
+                if (F2 < 4) {
                     wait();
                 }
             } catch (Exception e) {
@@ -38,10 +42,28 @@ public class Data {
             }
         }
 
-        public synchronized void signalForCalculatedMatrixMT() {
+        public synchronized void signalForCalculatedVectorM() {
             ++F2;
             System.out.println(F2 + " in signal");
             if (F2 >= 4) {
+                notifyAll();
+            }
+        }
+
+        public synchronized void waitForCalculatedVectorL() {
+            try {
+                if (F3 < 4) {
+                    wait();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public synchronized void signalForCalculatedVectorL() {
+            ++F3;
+
+            if (F3 >= 4) {
                 notifyAll();
             }
         }
@@ -76,8 +98,9 @@ public class Data {
     }
     public static class ResourcesMonitor {
         public int q,c,p;
-        public int[] A, N;
+        public int[] A;
 
+        public int [] N = new int[Data.N];
         public int [] L = new int[Data.N];
         public int [] B = new int[Data.N];
 
@@ -94,6 +117,8 @@ public class Data {
         public synchronized int[] getM(){return M;}
 
         public synchronized int[] getL(){return L;}
+
+        public synchronized int[] getVectorN(){return N;}
 
         public synchronized int[][] getMT(){return MT;}
 

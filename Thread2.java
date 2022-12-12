@@ -49,6 +49,8 @@ public class Thread2 extends Thread{
         // set M
         int []partVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,Data.H,Data.H*2);
         Data.writeVectorResult(partVectorM,0,Data.resourcesMonitor.M,Data.H,Data.H);
+        Data.synchronizationMonitor.signalForCalculatedVectorM();
+        Data.synchronizationMonitor.waitForCalculatedVectorM();
 
         // set MT
         int[][] partMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ, Data.resourcesMonitor.MR,Data.H,Data.H*2);
@@ -61,5 +63,11 @@ public class Thread2 extends Thread{
         int [] partVectorL = Data.multiplyConstantBySubVector(p2,Data.resourcesMonitor.getM(),Data.H,Data.H*2);
         Data.writeVectorResult(partVectorL,0,Data.resourcesMonitor.L,Data.H,Data.H);
         System.out.println(Arrays.toString(partVectorL) + " L in T2");
+        Data.synchronizationMonitor.signalForCalculatedVectorL();
+        Data.synchronizationMonitor.waitForCalculatedVectorL();
+
+        // set N
+        int [] partVectorN = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, Data.resourcesMonitor.MT, Data.H, Data.H*2);
+        Data.writeVectorResult(partVectorN,0,Data.resourcesMonitor.N,Data.H*2,Data.H);
     }
 }
