@@ -65,9 +65,11 @@ public class Thread1 extends Thread{
         System.out.println(Arrays.toString(Data.resourcesMonitor.getL()) + " : common L");
 
         // set N
-        int [] partVectorN = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, Data.resourcesMonitor.MT, 0, Data.H);
+        int [] partVectorN = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, Data.resourcesMonitor.getMT(), 0, Data.H);
         Data.writeVectorResult(partVectorN,0,Data.resourcesMonitor.N,0,Data.H);
 
+        Data.synchronizationMonitor.signalForCalculatedVectorN();
+        Data.synchronizationMonitor.waitForCalculatedVectorN();
         System.out.println(Arrays.toString(Data.resourcesMonitor.getVectorN()) + " : common N");
 
 

@@ -67,6 +67,24 @@ public class Data {
                 notifyAll();
             }
         }
+
+        public synchronized void waitForCalculatedVectorN() {
+            try {
+                if (F4 < 4) {
+                    wait();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public synchronized void signalForCalculatedVectorN() {
+            ++F4;
+
+            if (F4 >= 4) {
+                notifyAll();
+            }
+        }
     }
     public static class inputOutputMonitor {
         private int F1 = 0;

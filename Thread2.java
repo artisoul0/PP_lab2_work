@@ -67,7 +67,9 @@ public class Thread2 extends Thread{
         Data.synchronizationMonitor.waitForCalculatedVectorL();
 
         // set N
-        int [] partVectorN = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, Data.resourcesMonitor.MT, Data.H, Data.H*2);
-        Data.writeVectorResult(partVectorN,0,Data.resourcesMonitor.N,Data.H*2,Data.H);
+        int [] partVectorN = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.B, Data.resourcesMonitor.getMT(), Data.H, Data.H*2);
+        Data.writeVectorResult(partVectorN,0,Data.resourcesMonitor.N,Data.H,Data.H);
+        Data.synchronizationMonitor.signalForCalculatedVectorN();
+        Data.synchronizationMonitor.waitForCalculatedVectorN();
     }
 }
