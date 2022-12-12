@@ -67,5 +67,7 @@ public class Thread4 extends Thread{
         System.out.println(c4 + " c4");
         Data.synchronizationMonitor.signalCalculatedScalarC();
         Data.synchronizationMonitor.waitForCalculatedScalarC();
+
+        Data.inputOutputMonitor.OutputSignal();
     }
 }

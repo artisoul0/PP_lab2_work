@@ -153,6 +153,10 @@ public class Data {
             this.MB = MB;
         }
 
+        public synchronized void setScalarE(int e) {
+            this.e = e;
+        }
+
         public synchronized void setScalarC(int c) {
             this.c = c;
         }
@@ -207,8 +211,9 @@ public class Data {
             return p;
         }
 
-
-
+        public synchronized int copyScalarE() {
+            return e;
+        }
 
 
         public int minB(int start, int end) {
@@ -237,12 +242,6 @@ public class Data {
         System.arraycopy(source,sourcePos,dest,destPos,amount);
     }
 
-    public static synchronized void writeMatrixResult(int [][] source, int sourcePos, int [][] dest, int destPos, int amount){
-        for (int i = 0; i < N; i++) {
-                System.arraycopy(source,sourcePos,dest,i,amount);
-        }
-
-    }
 
     public static synchronized void writeRealMatrix( int [][] commonResourceMatrix, int [][] source, int start){
         for (int i = 0; i < Data.N; i++) {
@@ -253,9 +252,6 @@ public class Data {
     }
 
 
-    private static void writeToResult(int e) {
-        ResourcesMonitor.e = e;
-    }
     public static int multiplyVectorAndSubVector(int[] X, int[] Y, int start, int end)
     {
         int result = 0;
@@ -268,14 +264,12 @@ public class Data {
 
 
 
-
     public static int[] multiplyConstantBySubVector(int a, int[] Vector, int start, int end) {
         for (int i = start; i < end; i++) {
             Vector[i] *= a;
         }
         return Vector;
     }
-
 
 
 
@@ -293,21 +287,5 @@ public class Data {
         }
         return Matrix;
     }
-    public static int[][] multiplySubMatrixByConstant(int a, int[][] MX, int
-            start, int end) {
-        for (int j = 0; j < N; j++) {
-            for (int i = start; i < end; i++) {
-                MX[j][i] *= a;
-            }
-        }
-        return MX;
-    }
-    public static void printMatrix(int[][] MX) throws InterruptedException {
-        for (int[] X : MX) {
-            for (int x : X) {
-                System.out.print("\t" + x);
-            }
-            System.out.println();
-        }
-    }
+
 }

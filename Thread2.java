@@ -79,5 +79,13 @@ public class Thread2 extends Thread{
         System.out.println(c2 + " c2");
         Data.synchronizationMonitor.signalCalculatedScalarC();
         Data.synchronizationMonitor.waitForCalculatedScalarC();
+        try {
+            Data.inputOutputMonitor.WaitForOutputSignal();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        int scalarE = Data.resourcesMonitor.copyScalarC() + Data.resourcesMonitor.copyScalarQ();
+        Data.resourcesMonitor.setScalarE(scalarE);
+        System.out.println("e = " + Data.resourcesMonitor.copyScalarE());
     }
 }

@@ -82,6 +82,8 @@ public class Thread1 extends Thread{
 
         System.out.println(Data.resourcesMonitor.copyScalarC() + " common scalar c");
 
+        Data.inputOutputMonitor.OutputSignal();
+
 
 
     }

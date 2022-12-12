@@ -80,5 +80,7 @@ public class Thread3 extends Thread{
         System.out.println(c3 + " c3");
         Data.synchronizationMonitor.signalCalculatedScalarC();
         Data.synchronizationMonitor.waitForCalculatedScalarC();
+
+        Data.inputOutputMonitor.OutputSignal();
     }
 }
