@@ -35,14 +35,19 @@ public class Thread1 extends Thread{
         int []partVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,0,Data.H);
         Data.writeVectorResult(partVectorM,0,Data.resourcesMonitor.M,0,H);
 
+        //        System.out.println(Arrays.toString(Data.resourcesMonitor.M) + " final M");
         //set MT
 
         int[][] partMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ, Data.resourcesMonitor.MR,0,Data.H);
+        Data.writeRealMatrix(Data.resourcesMonitor.getMT(),partMatrixMT,0);
+        Data.synchronizationMonitor.signalForCalculatedMatrixMT();
+        Data.synchronizationMonitor.waitForCalculatedMatrixMT();
 
-        Data.writeRealMatrix(Data.resourcesMonitor.MT,partMatrixMT,0);
-        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " My MT by method");
+        System.out.println(Arrays.deepToString(Data.resourcesMonitor.getMT()) + " My MT by method");
 
         System.out.println(Arrays.deepToString(partMatrixMT) + " part MT");
+
+
 
 
 

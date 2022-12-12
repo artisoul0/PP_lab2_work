@@ -25,7 +25,6 @@ public class Thread4 extends Thread{
 
         System.out.println(q4 + " q4");
 
-//        Data.calculateResultPart(p4,q4,H*3,H*4);
 
         try {
             Data.inputOutputMonitor.WaitForOutputSignal();
@@ -36,14 +35,15 @@ public class Thread4 extends Thread{
         //set M
         int []partVectorM = Data.multiplyVectorBySubMatrix(Data.resourcesMonitor.A,Data.resourcesMonitor.MB,Data.H*3,Data.H*4);
         Data.writeVectorResult(partVectorM,0,Data.resourcesMonitor.M,H*3,H);
-        System.out.println(Arrays.toString(Data.resourcesMonitor.M));
+
 
         //set MT
 
         int[][] partMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ, Data.resourcesMonitor.MR,Data.H*3,Data.H*4);
-
-        Data.writeRealMatrix(Data.resourcesMonitor.MT,partMatrixMT,3);
-        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " My MT by method#4");
+        Data.writeRealMatrix(Data.resourcesMonitor.getMT(),partMatrixMT,3);
+        Data.synchronizationMonitor.signalForCalculatedMatrixMT();
+        Data.synchronizationMonitor.waitForCalculatedMatrixMT();
+        System.out.println(Arrays.deepToString(Data.resourcesMonitor.getMT()) + " My MT by method#4");
 
 
     }

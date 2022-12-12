@@ -46,8 +46,10 @@ public class Thread3 extends Thread{
 
         int[][] partMatrixMT = Data.multiplyMatrixAndSubMatrix(Data.resourcesMonitor.MZ, Data.resourcesMonitor.MR,Data.H*2,Data.H*3);
 
-        Data.writeRealMatrix(Data.resourcesMonitor.MT,partMatrixMT,2);
-        System.out.println(Arrays.deepToString(Data.resourcesMonitor.MT) + " My MT by method#3");
+        Data.writeRealMatrix(Data.resourcesMonitor.getMT(),partMatrixMT,2);
+        Data.synchronizationMonitor.signalForCalculatedMatrixMT();
+        Data.synchronizationMonitor.waitForCalculatedMatrixMT();
+        System.out.println(Arrays.deepToString(Data.resourcesMonitor.getMT()) + " My MT by method#3");
 
 
 

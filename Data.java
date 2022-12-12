@@ -9,6 +9,7 @@ public class Data {
     public static SynchronizationMonitor synchronizationMonitor = new SynchronizationMonitor();
     public static class SynchronizationMonitor {
         private int F1 = 0;
+        private int F2 = 0;
         public synchronized void signalCalculatedScalarQ() {
             F1++;
             if (F1 >= 4) {
@@ -23,6 +24,25 @@ public class Data {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+
+        public synchronized void waitForCalculatedMatrixMT() {
+            try {
+                System.out.println(F2 + " in wait");
+                if (F2 < 3) {
+                    wait();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public synchronized void signalForCalculatedMatrixMT() {
+            ++F2;
+            System.out.println(F2 + " in signal");
+            if (F2 >= 4) {
+                notifyAll();
             }
         }
     }
@@ -70,13 +90,8 @@ public class Data {
             this.MB = MB;
         }
 
-        public synchronized void setM(int [] M){this.M = M;}
+        public synchronized int[][] getMT(){return MT;}
 
-        public synchronized void setL(int [] L){this.L = L;}
-
-        public synchronized void setN(int [] N){this.N = N;}
-
-        public synchronized void setMT(int [][] MT){this.MT = MT;}
         public synchronized void setMR(int[][] MR) {
             this.MR = MR;
         }
